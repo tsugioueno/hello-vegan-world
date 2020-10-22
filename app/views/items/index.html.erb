@@ -5,9 +5,7 @@
   <title>Foods</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-  <script type="text/javascript" src="https://js.pay.jp/v1/"></script>
-  <%= stylesheet_link_tag 'application', media: 'all'%>
-  <%= javascript_pack_tag 'application' %>
+
 </head>
 
 <body>
@@ -77,7 +75,7 @@
   <%# /商品一覧 %>
 </div>
 <div class='purchase-btn'>
-  <span class='purchase-btn-text'>出品する</span>
+  <span class='purchase-btn-text'>投稿する</span>
   <a href="/items/new">
     <%= image_tag 'camera.png' , size: '185x50' ,class: "purchase-btn-icon" %>
   </a>
