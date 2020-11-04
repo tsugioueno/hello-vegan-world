@@ -37,9 +37,11 @@ ActiveRecord::Schema.define(version: 2020_10_22_080005) do
     t.string "product_name"
     t.text "product_text"
     t.bigint "item_id"
+    t.bigint "product_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["item_id"], name: "index_articles_on_item_id"
+    t.index ["product_id"], name: "index_articles_on_product_id"
   end
 
   create_table "buyers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -55,8 +57,8 @@ ActiveRecord::Schema.define(version: 2020_10_22_080005) do
 
   create_table "item_purchases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "item_id"
-    t.index ["item_id"], name: "index_item_purchases_on_item_id"
+    t.bigint "product_id"
+    t.index ["product_id"], name: "index_item_purchases_on_product_id"
     t.index ["user_id"], name: "index_item_purchases_on_user_id"
   end
 
@@ -68,11 +70,22 @@ ActiveRecord::Schema.define(version: 2020_10_22_080005) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "category_id", null: false
+    t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
+  create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "product_name", null: false
+    t.text "product_text", null: false
+    t.integer "price", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "category_id", null: false
     t.integer "product_condition_id", null: false
     t.integer "shipping_charge_id", null: false
     t.integer "shipping_area_id", null: false
     t.integer "days_to_ship_id", null: false
-    t.index ["user_id"], name: "index_items_on_user_id"
+    t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -95,8 +108,10 @@ ActiveRecord::Schema.define(version: 2020_10_22_080005) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "articles", "items"
+  add_foreign_key "articles", "products"
   add_foreign_key "buyers", "item_purchases"
-  add_foreign_key "item_purchases", "items"
+  add_foreign_key "item_purchases", "products"
   add_foreign_key "item_purchases", "users"
   add_foreign_key "items", "users"
+  add_foreign_key "products", "users"
 end
