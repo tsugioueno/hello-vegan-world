@@ -50,5 +50,6 @@ test:
 production:
   <<: *default
   database: hello_vegan_world_production
-  username: hello_vegan_world
-  password: <%= ENV['HELLO_VEGAN_WORLD_DATABASE_PASSWORD'] %>
+  username: root
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: /var/lib/mysql/mysql.sock
